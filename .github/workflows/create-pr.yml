@@ -31,6 +31,7 @@ jobs:
       - name: Make changes
         run: |
           cd forked-repo
+          git checkout -b my-feature-branch
           echo "Some new content" >> newfile.txt
           git add newfile.txt
           git commit -m "Add new file"
@@ -41,10 +42,10 @@ jobs:
           git remote -v
           git remote set-url origin https://garyjyao:${{ secrets.GH_TOKEN }}@github.com/garyjyao/forked-repo.git
           git remote -v
-          git push origin main --force
+          git push origin my-feature-branch --force
 
       - name: Create a Pull Request
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          gh pr create --title "Automated PR from GitHub Actions" --body "This PR was created automatically by GitHub Actions." --head garyjyao:main --base main --repo bonsaieng/test-flask-app
+          gh pr create --title "Automated PR from GitHub Actions" --body "This PR was created automatically by GitHub Actions." --head garyjyao:my-feature-branch --base main --repo bonsaieng/test-flask-app
