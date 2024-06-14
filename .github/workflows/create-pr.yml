@@ -1,0 +1,45 @@
+name: Fork, Change, and PR
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
+
+jobs:
+  fork-and-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Authenticate with GitHub CLI
+        run: |
+          echo ${{ secrets.GH_TOKEN }} | gh auth login --with-token
+
+      - name: Fork the repository
+        id: fork
+        run: |
+          gh repo fork https://github.com/bonsaieng/test-flask-app.git --fork-name forked-repo --clone --default-branch-only --remote
+
+      - name: Make changes
+        run: |
+          cd forked-repo
+          echo "Some new content" >> newfile.txt
+          git add newfile.txt
+          git commit -m "Add new file"
+
+      - name: Push changes to the fork
+        run: |
+          cd forked-repo
+          git push origin main --force
+
+      - name: Create a Pull Request
+        run: |
+          gh pr create --title "Automated PR from GitHub Actions" --body "This PR was created automatically by GitHub Actions." --head main --base main
