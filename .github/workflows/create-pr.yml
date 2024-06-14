@@ -38,6 +38,7 @@ jobs:
       - name: Push changes to the fork
         run: |
           cd forked-repo
+          git remote -v
           git push origin main --force
 
       - name: Create a Pull Request
