@@ -48,4 +48,5 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
+          git status
           gh pr create --title "Automated PR from GitHub Actions" --body "This PR was created automatically by GitHub Actions." --head garyjyao:my-feature-branch --base main --repo bonsaieng/test-flask-app
