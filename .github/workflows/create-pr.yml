@@ -44,5 +44,7 @@ jobs:
           git push origin main --force
 
       - name: Create a Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          gh pr create --title "Automated PR from GitHub Actions" --body "This PR was created automatically by GitHub Actions." --head main --base main
+          gh pr create --title "Automated PR from GitHub Actions" --body "This PR was created automatically by GitHub Actions." --head garyjyao/forked-repo:main --base main --repo bonsaieng/test-flask-app
