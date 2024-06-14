@@ -47,4 +47,4 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          gh pr create --title "Automated PR from GitHub Actions" --body "This PR was created automatically by GitHub Actions." --head garyjyao/forked-repo:main --base main --repo bonsaieng/test-flask-app
+          gh pr create --title "Automated PR from GitHub Actions" --body "This PR was created automatically by GitHub Actions." --head garyjyao:main --base main --repo bonsaieng/test-flask-app
