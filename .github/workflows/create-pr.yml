@@ -41,7 +41,7 @@ jobs:
           git remote -v
           git remote set-url origin https://garyjyao:${{ secrets.GH_TOKEN }}@github.com/garyjyao/forked-repo.git
           git remote -v
-          gh repo push origin main --force
+          git push origin main --force
 
       - name: Create a Pull Request
         run: |
