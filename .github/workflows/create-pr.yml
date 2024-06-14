@@ -26,11 +26,7 @@ jobs:
       - name: Fork the repository
         id: fork
         run: |
-          gh repo fork https://github.com/bonsaieng/test-flask-app.git --default-branch-only
-
-      - name: Clone the forked repository
-        run: |
-          git clone https://x-access-token:${{ secrets.GH_TOKEN }}github.com/garyjyao/test-flask-app.git forked-repo
+          gh repo fork https://github.com/bonsaieng/test-flask-app.git --fork-name forked-repo --default-branch-only --clone --remote
 
       - name: Make changes
         run: |
@@ -42,6 +38,8 @@ jobs:
       - name: Push changes to the fork
         run: |
           cd forked-repo
+          git remote -v
+          git remote set-url origin https://garyjyao:${{ secrets.GH_TOKEN }}@github.com/garyjyao/forked-repo.git
           git remote -v
           gh repo push origin main --force
 
